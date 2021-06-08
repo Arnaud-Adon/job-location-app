@@ -23,7 +23,7 @@ const SlideIndex = ({ data, page }) => {
           key={index}
           style={[
             styles.cube,
-            { backgroundColor: page === index && Colors.BLACK },
+            { backgroundColor: page === index && Colors.WHITE },
           ]}
         />
       ))}
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderWidth: 1,
-    borderColor: Colors.BLACK,
+    borderColor: Colors.WHITE,
   },
 });
 

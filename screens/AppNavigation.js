@@ -9,15 +9,15 @@ import DeckScreen from "./DeckScreen";
 import ReviewScreen from "./ReviewScreen";
 import SettingsScreen from "./SettingsScreen";
 import { Feather, AntDesign } from "@expo/vector-icons";
-import { Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const GoSettings = ({ onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Settings</Text>
+    <TouchableOpacity onPress={onPress} style={{ paddingRight: 15 }}>
+      <Feather name="settings" size={24} color="black" />
     </TouchableOpacity>
   );
 };
@@ -66,13 +66,18 @@ const MainNavigator = () => {
 const ReviewNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={({ navigation }) => ({
-        headerRight: () => (
-          <GoSettings onPress={() => navigation.navigate("Settings")} />
-        ),
+      screenOptions={({ route, navigation }) => ({
+        headerRight: () =>
+          route.name === "JobReview" && (
+            <GoSettings onPress={() => navigation.navigate("Settings")} />
+          ),
       })}
     >
-      <Stack.Screen name="JobReview" component={ReviewScreen} />
+      <Stack.Screen
+        name="JobReview"
+        component={ReviewScreen}
+        options={{ headerTitle: null, headerLeft: false }}
+      />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   );
@@ -81,10 +86,14 @@ const ReviewNavigator = () => {
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Main">
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Auth" component={AuthScreen} />
-        <Stack.Screen name="Main" component={MainNavigator} />
+        <Stack.Screen
+          name="Main"
+          component={MainNavigator}
+          options={{ headerTitle: null, headerLeft: null }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
